@@ -40,7 +40,7 @@ const Register = () => {
 
     return (
         <div className={s.registerPage}>
-            <form onSubmit={sendUserData}>
+            <form className={s.form} onSubmit={sendUserData}>
                 <label>
                     Name:
                     <input

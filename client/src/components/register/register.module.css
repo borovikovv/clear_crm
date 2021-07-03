@@ -1,6 +1,6 @@
 .registerPage {
     display: flex;
-    font-display: column;
     justify-content: center;
+    flex-direction: column;
     align-items: center;
 }

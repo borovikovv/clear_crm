@@ -11,5 +11,5 @@ const client = axios.create({
 });
 
 export const register = (userData) => {
-    return client.post(`api/v1/auth`, userData);
+    return client.post(`/api/v1/signup`, userData);
 };
