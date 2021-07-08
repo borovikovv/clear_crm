@@ -4,6 +4,8 @@ const dotenv = require('dotenv');
 dotenv.config({ path: './config.env' });
 const config = process.env;
 
+const db = {};
+
 process.on('uncaughtRejection', err => {
     console.log(err.name, err.message)
     console.log('UNCAUGHT REJECTION!')
@@ -29,6 +31,7 @@ async function connectDB() {
 
 async function listDatabases(client){
     databasesList = await client.db().admin().listDatabases();
+    db = client.db;
  
     console.log("Databases:");
     databasesList.databases.forEach(db => console.log(` - ${db.name}`));
@@ -49,3 +52,5 @@ process.on('unhandledRejection', err => {
         process.exit(1);
     })
 })
+
+module.exports = db;
