@@ -1,6 +1,7 @@
 const app = require("./app");
 const { MongoClient } = require('mongodb');
 const dotenv = require('dotenv');
+
 dotenv.config({ path: './config.env' });
 const config = process.env;
 
