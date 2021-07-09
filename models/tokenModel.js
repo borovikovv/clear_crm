@@ -1,7 +1,6 @@
 const db = require("./../server")
-const User = require("./userModel");
 
-db.createCollection("token", {
+const Token = db.createCollection("token", {
     validator: {
        $jsonSchema: {
           bsonType: "object",
@@ -18,3 +17,5 @@ db.createCollection("token", {
        }
     }
  });
+
+ module.exports = Token;

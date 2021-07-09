@@ -4,7 +4,7 @@ const dotenv = require('dotenv');
 dotenv.config({ path: './config.env' });
 const config = process.env;
 
-const db = {};
+let db = {};
 
 process.on('uncaughtRejection', err => {
     console.log(err.name, err.message)
@@ -13,12 +13,15 @@ process.on('uncaughtRejection', err => {
 })
 
 async function connectDB() {
-    const client = new MongoClient(config.DB_URL, {
+
+    const database_url = config.DB_URL.replace('<password>', config.DB_PASSWORD);
+    const client = new MongoClient(database_url, {
         useNewUrlParser: true,
         useUnifiedTopology: true });
 
     try {
         await client.connect();
+        db = client.db(config.DB_NAME);
 
         await listDatabases(client);
 
@@ -31,7 +34,6 @@ async function connectDB() {
 
 async function listDatabases(client){
     databasesList = await client.db().admin().listDatabases();
-    db = client.db;
  
     console.log("Databases:");
     databasesList.databases.forEach(db => console.log(` - ${db.name}`));

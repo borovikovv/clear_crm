@@ -1,6 +1,6 @@
 const db = require("./../server");
 
-db.createCollection("user", {
+const Users = db.createCollection("user", {
     validator: {
        $jsonSchema: {
           bsonType: "object",
@@ -30,3 +30,5 @@ db.createCollection("user", {
        }
     }
  });
+
+ module.exports = Users;
