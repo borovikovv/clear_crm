@@ -1,21 +1,14 @@
-const db = require("./../server")
+const { Schema, model } = require("mongoose");
 
-const Token = db.createCollection("token", {
-    validator: {
-       $jsonSchema: {
-          bsonType: "object",
-          required: [ "user", "refreshToken" ],
-          properties: {
-            user: {
-                bsonType: "string"
-             },
-             refreshToken: {
-                bsonType: "string",
-                required: true
-             }
-          }
-       }
-    }
- });
+const TokenModel = new Schema({
+   user: {
+      type: Schema.Types.ObjectId,
+      ref: "User"
+   },
+   refreshToken: {
+      type: String,
+      require: true,
+   }
+});
 
- module.exports = Token;
+module.exports = model("Token", TokenModel);
