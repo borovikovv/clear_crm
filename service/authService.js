@@ -1,5 +1,6 @@
 const UserModel = require("../models/userModel");
 const uuid = require("uuid");
+const bcrypt = require("bcrypt");
 
 const mailService = require("./mailService");
 const UserDto = require("../dtos/userDto");
@@ -19,13 +20,11 @@ class AuthService {
         const hashPassword = await bcrypt.hash(password, salt);
         const activationLink = uuid.v4();
 
-        const user = await UserModel.insertOne({
+        const user = await UserModel.create({
             email,
             password: hashPassword,
             activationLink
         });
-
-        console.log(user, "user");
 
         await mailService.sendActivationMail(email, activationLink);
 

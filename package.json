@@ -2,11 +2,11 @@
   "name": "clear_crm",
   "version": "1.0.0",
   "description": "crm system for organizations",
-  "main": "server.js",
+  "main": "web-server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js",
-    "server": "nodemon server.js",
+    "start": "node web-server.js",
+    "server": "nodemon web-server.js",
     "client": "npm run start --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\""
   },
