@@ -2,6 +2,7 @@ const UserModel = require("../models/userModel");
 const uuid = require("uuid");
 const bcrypt = require("bcrypt");
 
+const AppError = require("../utils/AppErrors");
 const mailService = require("./mailService");
 const UserDto = require("../dtos/userDto");
 const tokenService = require("./tokenService");
@@ -9,14 +10,12 @@ const tokenService = require("./tokenService");
 class AuthService {
     async registration(email, password) {
         const candidate = await UserModel.findOne({email});
-        console.log(candidate, "candidate");
 
         if(candidate) {
-            return next(new AppError(`Email ${email} already exist`, 400))
+            return new AppError(`Email ${email} already exist`, 400);
         }
 
         const salt = bcrypt.genSaltSync(10);
-        console.log(salt, "salt");
         const hashPassword = await bcrypt.hash(password, salt);
         const activationLink = uuid.v4();
 

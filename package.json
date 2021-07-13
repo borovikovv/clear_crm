@@ -2,10 +2,11 @@
   "name": "clear_crm",
   "version": "1.0.0",
   "description": "crm system for organizations",
-  "main": "web-server.js",
+  "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node web-server.js",
+    "debug": "ndb web-server.js",
     "server": "nodemon web-server.js",
     "client": "npm run start --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\""
@@ -24,6 +25,7 @@
   },
   "devDependencies": {
     "concurrently": "^6.2.0",
+    "ndb": "^1.1.5",
     "nodemon": "^2.0.7"
   }
 }
