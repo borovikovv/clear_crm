@@ -2,9 +2,9 @@ const app = require("./app");
 const dotenv = require('dotenv');
 const mongoose = require("mongoose");
 
-dotenv.config({ path: './config.env' });
+dotenv.config({ path: "./config.env" });
 const config = process.env;
-const PORT = process.env.PORT || 8060;
+const PORT = process.env.PORT;
 
 process.on('uncaughtRejection', err => {
     console.log(err.name, err.message)

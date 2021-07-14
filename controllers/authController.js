@@ -15,7 +15,7 @@ class authController {
             return res.json(userData);
 
         } catch (e) {
-            console.error(e);
+            next(e);
         }
     };
 
@@ -23,7 +23,7 @@ class authController {
         try {
 
         } catch (e) {
-            
+            next(e);
         }
     };
 
@@ -31,7 +31,7 @@ class authController {
         try {
 
         } catch (e) {
-            
+            next(e);
         }
     };
 
@@ -39,15 +39,18 @@ class authController {
         try {
 
         } catch (e) {
-            
+            next(e);
         }
     };
 
     async activate(req, res, next) {
         try {
+            const activationLink = req.params.link;
+            await AuthService.activate(activationLink);
 
+            return res.redirect(process.env.CLIENT_URL)
         } catch (e) {
-            
+            next(e);
         }
     };
 }

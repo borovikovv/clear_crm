@@ -2,17 +2,18 @@ const UserModel = require("../models/userModel");
 const uuid = require("uuid");
 const bcrypt = require("bcrypt");
 
-const AppError = require("../utils/AppErrors");
+const ApiError = require("../utils/ApiError");
 const mailService = require("./mailService");
 const UserDto = require("../dtos/userDto");
 const tokenService = require("./tokenService");
+const config =  process.env;
 
 class AuthService {
     async registration(email, password) {
         const candidate = await UserModel.findOne({email});
 
         if(candidate) {
-            return new AppError(`Email ${email} already exist`, 400);
+            throw ApiError.BadRequest(`Email ${email} already exist`);
         }
 
         const salt = bcrypt.genSaltSync(10);
@@ -25,7 +26,7 @@ class AuthService {
             activationLink
         });
 
-        await mailService.sendActivationMail(email, activationLink);
+        await mailService.sendActivationMail(email, `${config.API_URL}/api-v1/activate/${activationLink}`);
 
         const userDto = new UserDto(user);
         const tokens = tokenService.generateTokens({ ...userDto });
@@ -35,6 +36,18 @@ class AuthService {
         return { ...tokens, user: userDto }
 
     };
+
+    async activate(activationLink) {
+        const user = await UserModel.findOne({activationLink});
+
+        if(!user) {
+            throw ApiError.BadRequest(`User not be find!`)
+        }
+
+        user.isActivated = true;
+
+        await user.save();
+    }
 };
 
 module.exports = new AuthService();
