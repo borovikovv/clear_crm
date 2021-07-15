@@ -1,26 +1,26 @@
 const AuthService = require("../service/authService");
+const { setCookies } = require("../utils/authUtils");
 
 class authController {
 
-    async signup(req, res, next) {
+    signup = async (req, res, next) => {
         try {
             const { email, password } = req.body;
             const userData = await AuthService.registration(email, password);
 
-            res.cookie("refreshToken", userData.refreshToken, {
-                maxAge: 30 * 24 * 60 * 60 * 1000,
-                httpOnly: true
-            });
-
-            return res.json(userData);
+            return setCookies(res, userData);
 
         } catch (e) {
             next(e);
         }
     };
 
-    async login(req, res, next) {
+    login = async (req, res, next) => {
         try {
+            const { email, password } = req.body;
+            const userData = await AuthService.login(email, password);
+            
+            return setCookies(res, userData);
 
         } catch (e) {
             next(e);
@@ -29,21 +29,29 @@ class authController {
 
     async logout(req, res, next) {
         try {
+            const { refreshToken } = req.cookies;
+            const token = await AuthService.logout(refreshToken);
+            res.clearCookie("refreshToken");
 
+            return res.json(token);
         } catch (e) {
             next(e);
         }
     };
 
-    async refresh(req, res, next) {
+    refresh = async (req, res, next) => {
         try {
+            const refreshToken = req.cookie;
+            const userData = await AuthService.refresh(refreshToken);
 
+            return setCookies(res, userData);
+        
         } catch (e) {
             next(e);
         }
     };
 
-    async activate(req, res, next) {
+    activate = async (req, res, next) => {
         try {
             const activationLink = req.params.link;
             await AuthService.activate(activationLink);

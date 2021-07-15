@@ -13,7 +13,6 @@ module.exports = class ApiError extends Error {
         return new ApiError(401, "User not autorized")        
     }
 
-
     static BadRequest(message, errors = []) {
         return new ApiError(400, message, errors) 
     }
