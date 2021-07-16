@@ -1,11 +1,13 @@
 import React, { useState } from "react";
+import { connect } from "react-redux";
 
 import { emailValidate, validatePassword } from "../../utils/authUtils";
-import AuthService from "../../api/AuthService";
+import { registration } from "../../actions/authAction";
 
 import s from "./register.module.css";
 
-const Register = () => {
+const Register = (props) => {
+    const { registration } = props;
 
     let [email, setMail] = useState("");
     let [password, setPassword] = useState("");
@@ -22,7 +24,8 @@ const Register = () => {
         userData.set("email", email);
         userData.set("password", password);
 
-        AuthService.register(userData);
+        registration(email, password);
+
     };
 
     const onChangeMail = (e) => {
@@ -81,4 +84,12 @@ const Register = () => {
     )
 };
 
-export default Register;
+const mapStateToProps = (state) => ({
+
+});
+
+const mapDispatchToProps = {
+    registration
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Register);

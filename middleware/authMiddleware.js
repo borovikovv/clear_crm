@@ -1,26 +1,26 @@
-const ApiError = require("../utils/ApiError");
+const AppError = require("../utils/AppError");
 const tokenService = require("../service/tokenService");
 
 module.exports = function(req, res, next) {
     try {
         const autorizationHeader = req.headers.authorization;
         if(!autorizationHeader) {
-            return next(ApiError.UnautorizedErrors())
+            return next(new AppError("User not autorized", 401))
         }
 
         const accessToken = autorizationHeader.split(" ")[1];
         if(!accessToken) {
-            return next(ApiError.UnautorizedErrors())
+            return next(new AppError("User not autorized", 401))
         }
 
         const userData = tokenService.validateAccessToken(accessToken);
         if(!userData) {
-            return next(ApiError.UnautorizedErrors())
+            return next(new AppError("User not autorized", 401))
         }
 
         req.user = userData;
         next();
     } catch(e) {
-        next(ApiError.UnautorizedErrors());
+        next(new AppError("User not autorized", 401));
     }
 };

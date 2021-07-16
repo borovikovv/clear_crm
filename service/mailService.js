@@ -1,6 +1,6 @@
 const nodemailer = require("nodemailer");
 
-const ApiError = require("../utils/ApiError");
+const AppError = require("../utils/AppError");
 
 class MailService {
     constructor(){
@@ -28,7 +28,7 @@ class MailService {
                     </div>`, 
             });
         } catch (e) {
-            throw ApiError.BadRequest(`${e.message}`)
+            throw new AppError(e.message, 400);
         }
     }
 };

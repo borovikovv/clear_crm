@@ -2,7 +2,7 @@ const UserModel = require("../models/userModel");
 const uuid = require("uuid");
 const bcrypt = require("bcrypt");
 
-const ApiError = require("../utils/ApiError");
+const AppError = require("../utils/AppError");
 const { generateTokens } = require("../utils/authUtils");
 const mailService = require("./mailService");
 const userDto = require("../dtos/userDto");
@@ -10,11 +10,12 @@ const tokenService = require("./tokenService");
 const config =  process.env;
 
 class AuthService {
-    async registration(email, password) {
+
+    async registration (email, password){
         const candidate = await UserModel.findOne({email});
 
         if(candidate) {
-            throw ApiError.BadRequest(`Email ${email} already exist`);
+            throw new AppError(`Email ${email} already exist`, 400);
         }
 
         const salt = bcrypt.genSaltSync(10);
@@ -39,17 +40,17 @@ class AuthService {
         const user = await UserModel.findOne({email});
 
         if(!user) {
-            throw ApiError.BadRequest(`Wrong password or user with such email is not exist!`)
+            throw new AppError(`Wrong password or user with such email is not exist!`, 400)
         }
 
         const isPasswordConfirm = await bcrypt.compare(password, user.password);
 
         if(!isPasswordConfirm) {
-            throw ApiError.BadRequest(`Wrong email or password`)
+            throw new AppError(`Wrong email or password`, 400)
         }
 
         if(!user.isActivated) {
-            throw new ApiError(404, `You account not activated!`)
+            throw new AppError(`You account not activated!`, 404)
         }
 
         const tokens = await generateTokens(userDto, tokenService, user);
@@ -67,7 +68,7 @@ class AuthService {
         const user = await UserModel.findOne({activationLink});
 
         if(!user) {
-            throw ApiError.BadRequest(`User not be find!`)
+            throw new AppError(`User not be find!`, 400)
         }
 
         user.isActivated = true;
@@ -77,14 +78,14 @@ class AuthService {
 
     async refresh(refreshToken) {
         if(!refreshToken) {
-            throw ApiError.UnautorizedErrors();
+            throw new AppError(`User not autorized`, 401);
         }
 
         const userData = tokenService.validateRefreshToken(token);
         const tokenFromDB = await tokenService.findToken(refreshToken);
 
         if(!userData || !tokenFromDB) {
-            throw ApiError.UnautorizedErrors();
+            throw new AppError(`User not autorized`, 401);
         }
 
         const user = UserModel.findById(user.id);
