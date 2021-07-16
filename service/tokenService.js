@@ -43,7 +43,7 @@ class TokenService {
 
     validateAccessToken(token) {
         try {
-            const userData = jwt.varify(token, config.JWT_ACCESS_SECRET);
+            const userData = jwt.verify(token, config.JWT_ACCESS_SECRET);
 
             return userData;
         } catch(e) {
@@ -53,7 +53,7 @@ class TokenService {
 
     validateRefreshToken(token) {
         try {
-            const userData = jwt.varify(token, config.JWT_REFRESH_SECRET);
+            const userData = jwt.verify(token, config.JWT_REFRESH_SECRET);
 
             return userData;
         } catch(e) {
