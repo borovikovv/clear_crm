@@ -3,4 +3,11 @@
     justify-content: center;
     flex-direction: column;
     align-items: center;
+    padding-top: 200px;
+}
+.form {
+    width: 300px;
+}
+.button {
+    display: block;
 }

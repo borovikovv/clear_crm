@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 
-import { register } from "../../api/api-v1";
+import { emailValidate, validatePassword } from "../../utils/authUtils";
+import AuthService from "../../api/AuthService";
 
 import s from "./register.module.css";
 
@@ -12,12 +13,16 @@ const Register = () => {
 
     const sendUserData = (e) => {
         e.preventDefault();
+
+        // const isEmailValid = emailValidate(email);
+        // const isPasswordValid = validatePassword()
+        // const isConfirmPasswordValid = validatePassword()
         const userData = new FormData();
 
         userData.set("email", email);
         userData.set("password", password);
 
-        register(userData);
+        AuthService.register(userData);
     };
 
     const onChangeMail = (e) => {
@@ -42,8 +47,8 @@ const Register = () => {
         <div className={s.registerPage}>
             <form className={s.form} onSubmit={sendUserData}>
                 <label>
-                    Name:
                     <input
+                        className={s.registerFields}
                         value={email}
                         type="text"
                         name="mail"
@@ -51,7 +56,6 @@ const Register = () => {
                     />
                 </label>
                 <label>
-                    Password:
                     <input
                         value={password}
                         type="password"
@@ -60,7 +64,6 @@ const Register = () => {
                     />
                 </label>
                 <label>
-                    Confirm Password:
                     <input
                         value={confirmPassword}
                         type="password"
@@ -68,7 +71,9 @@ const Register = () => {
                         onChange={onChangeConfirmPassword}
                     />
                 </label>
-                <button type="submit" value="Надіслати">
+                <button
+                    className={s.button}
+                    type="submit">
                     Registration
                 </button>
             </form>
