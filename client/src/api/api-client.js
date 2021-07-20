@@ -13,7 +13,7 @@ const client = axios.create({
 
 client.interceptors.request.use(
     (config) => {
-        config.headers.Authorization = localStorage.getItem("JWToken");
+        config.headers.Authorization = `Bearer ${localStorage.getItem("JWToken")}`;
 
         return config;
     }

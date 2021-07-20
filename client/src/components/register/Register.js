@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 
 import { emailValidate, validatePassword } from "../../utils/authUtils";
-import { registration } from "../../actions/authAction";
+import { registration } from "../../actions/authActions";
 
 import s from "./register.module.css";
 
