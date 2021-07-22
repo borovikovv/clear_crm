@@ -1,19 +1,19 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
-  userData: null
+  isAuth: false
 }
 
 export const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    getAuthUserData: (state, action) => {
-        state.userData = action.payload
+    setAuth: (state, action) => {
+        state.isAuth = action.payload
     }
   }
 })
 
-export const { getAuthUserData } = authSlice.actions
+export const { setAuth } = authSlice.actions
 
 export default authSlice.reducer
