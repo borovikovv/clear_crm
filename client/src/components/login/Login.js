@@ -1,17 +1,15 @@
-import React, { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
+import { useState } from "react";
 
-import { emailValidate, validatePassword } from "../../utils/authUtils";
-import { registration } from "../../actions/authActions";
+import { login } from "../../actions/authActions";
+import s from "./login.module.css"
 
-import s from "./register.module.css";
-
-const Register = (props) => {
+const Login = (props) => {
+    const { } = props;
     const dispatch = useDispatch();
 
     let [email, setMail] = useState("");
     let [password, setPassword] = useState("");
-    let [confirmPassword, setConfirmPassword] = useState("");
 
     const sendUserData = (e) => {
         e.preventDefault();
@@ -19,12 +17,8 @@ const Register = (props) => {
         // const isEmailValid = emailValidate(email);
         // const isPasswordValid = validatePassword()
         // const isConfirmPasswordValid = validatePassword()
-        const userData = new FormData();
 
-        userData.set("email", email);
-        userData.set("password", password);
-
-        dispatch(registration({email, password}));
+        dispatch(login({ email, password }));
 
     };
 
@@ -40,18 +34,12 @@ const Register = (props) => {
         setPassword(value);
     }
 
-    const onChangeConfirmPassword = (e) => {
-        let value = e.target.value;
-
-        setConfirmPassword(value);
-    }
-
     return (
-        <div className={s.registerPage}>
+        <div className={s.loginPage}>
             <form className={s.form} onSubmit={sendUserData}>
                 <label>
                     <input
-                        className={s.registerFields}
+                        className={s.login}
                         value={email}
                         type="text"
                         name="mail"
@@ -66,22 +54,14 @@ const Register = (props) => {
                         onChange={onChangePassword}
                     />
                 </label>
-                <label>
-                    <input
-                        value={confirmPassword}
-                        type="password"
-                        name="password"
-                        onChange={onChangeConfirmPassword}
-                    />
-                </label>
                 <button
                     className={s.button}
                     type="submit">
-                    Registration
+                    Login
                 </button>
             </form>
         </div>
     )
 };
 
-export default Register;
+export default Login;

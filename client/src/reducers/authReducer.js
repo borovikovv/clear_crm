@@ -1,17 +1,5 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-
-import AuthService from "../api/AuthService";
-
-export const registration = createAsyncThunk(
-  'auth/registration',
-  async (data, thunkAPI) => {
-    const { email, password } = data;
-
-    const response = await AuthService.register(email, password);
-
-    return response.data.user.email;
-  }
-)
+import { createSlice } from "@reduxjs/toolkit"
+import { registration, login, logout } from "../actions/authActions";
 
 const initialState = {
   isAuth: false,
@@ -30,8 +18,15 @@ export const authSlice = createSlice({
     }
   },
   extraReducers: (builder) => {
-    builder.addCase(registration.fulfilled, (state, action) => {
+    builder
+    .addCase(registration.fulfilled, (state, action) => {
       state.userData = action.payload;
+    })
+    .addCase(login.fulfilled, (state, action) => {
+      state.isAuth = action.payload;
+    })
+    .addCase(logout.fulfilled, (state, action) => {
+      state.isAuth = action.payload;
     })
   },
 })

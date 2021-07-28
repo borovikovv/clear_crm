@@ -1,11 +1,37 @@
+import { createAsyncThunk } from '@reduxjs/toolkit';
 import AuthService from "../api/AuthService";
 
-export const registration = (email, password) => async (dispatch) => {
-    try {
-        const result = await AuthService.register(email, password);
-        console.log(result);
-    } catch (e) {
-        console.dir({e});
+
+export const registration = createAsyncThunk(
+    'auth/registration',
+    async (data) => {
+      const { email, password } = data;
+  
+      const response = await AuthService.register(email, password);
+  
+      return response.data.user.email;
     }
-    
-};
+)
+
+export const login = createAsyncThunk(
+    'auth/login',
+    async (data) => {
+      const { email, password } = data;
+  
+      const response = await AuthService.login(email, password);
+      console.log(response);
+        
+      localStorage.setItem('token', response.data.accessToken);
+      return true;
+    }
+)
+
+export const logout = createAsyncThunk(
+    'auth/logout',
+    async () => {  
+      await AuthService.logout();
+        
+      localStorage.removeItem('token');
+      return false;
+    }
+)

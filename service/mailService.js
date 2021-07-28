@@ -3,17 +3,16 @@ const nodemailer = require("nodemailer");
 const AppError = require("../utils/AppError");
 
 class MailService {
-    constructor(){
-        this.transporter = nodemailer.createTransport({
-            host: "smtp.gmail.com",
-            port: 587,
-            secure: false,
-            auth: {
-              user: "clear.crm2u@gmail.com",
-              pass: "password_for_crm_2U"
-            },
-          });
-    }
+
+    transporter = nodemailer.createTransport({
+        host: "smtp.gmail.com",
+        port: 587,
+        secure: false,
+        auth: {
+            user: "clear.crm2u@gmail.com",
+            pass: "password_for_crm_2U"
+        },
+    });
 
     async sendActivationMail(to, link) {
         try {
@@ -25,7 +24,7 @@ class MailService {
                 html: `<div>
                         <h1>Account activation click link:</h1>
                         <a href=${link}>${link}</a>
-                    </div>`, 
+                    </div>`,
             });
         } catch (e) {
             throw new AppError(e.message, 400);
