@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 
 import { emailValidate, validatePassword } from "../../utils/authUtils";
-import { registration } from "../../actions/authActions";
+import { registration } from "../../reducers/authReducer";
 
 import s from "./register.module.css";
 
@@ -24,7 +24,7 @@ const Register = (props) => {
         userData.set("email", email);
         userData.set("password", password);
 
-        registration(email, password);
+        registration({email, password});
 
     };
 
