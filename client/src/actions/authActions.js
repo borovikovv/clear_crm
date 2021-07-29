@@ -41,7 +41,7 @@ export const checkAuth = createAsyncThunk(
     const response = await AuthService.checkAuth();
     
     localStorage.setItem('token', response.data.accessToken);
+    
     return true;
-      
   }
 )
