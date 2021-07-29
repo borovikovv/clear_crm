@@ -19,7 +19,6 @@ export const login = createAsyncThunk(
       const { email, password } = data;
   
       const response = await AuthService.login(email, password);
-      console.log(response);
         
       localStorage.setItem('token', response.data.accessToken);
       return true;
@@ -34,4 +33,15 @@ export const logout = createAsyncThunk(
       localStorage.removeItem('token');
       return false;
     }
+)
+
+export const checkAuth = createAsyncThunk(
+  'auth/checkAuth',
+  async () => {  
+    const response = await AuthService.checkAuth();
+    
+    localStorage.setItem('token', response.data.accessToken);
+    return true;
+      
+  }
 )

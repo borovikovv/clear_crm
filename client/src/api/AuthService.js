@@ -1,4 +1,7 @@
 import client from "./api-client";
+import axios from "axios";
+
+const url = `${window.location.origin}`
 
 class AuthService {
     static async register (email, password) {
@@ -14,6 +17,12 @@ class AuthService {
     static async logout () {
         return client.get(`/api-v1/logout`);
     };
+
+    static async checkAuth () {
+        return axios.get(`${url}/api-v1/refresh`, { 
+            withCredentials: true
+        });
+    }
 }
 
 export default AuthService; 

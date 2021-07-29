@@ -1,6 +1,8 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect } from "react";
 import { Switch, Route } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 
+import { checkAuth } from "./actions/authActions";
 import Register from "./components/register/Register";
 import Login from "./components/login/Login";
 import MainContainer from "./components/main-container/MainContainer";
@@ -13,6 +15,14 @@ const {
 } = types;
 
 function App() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if(localStorage.token) {
+      dispatch(checkAuth());
+    }
+  }, []);
+
   return (
     <Fragment>
       <Switch>

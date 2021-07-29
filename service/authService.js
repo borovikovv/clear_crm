@@ -81,14 +81,14 @@ class AuthService {
             throw new AppError(`User not autorized`, 401);
         }
 
-        const userData = tokenService.validateRefreshToken(token);
+        const userData = tokenService.validateRefreshToken(refreshToken);
         const tokenFromDB = await tokenService.findToken(refreshToken);
 
         if(!userData || !tokenFromDB) {
             throw new AppError(`User not autorized`, 401);
         }
 
-        const user = UserModel.findById(user.id);
+        const user = await UserModel.findById(userData.id);
         const tokens = await generateTokens(userDto, tokenService, user);
 
         return tokens;
