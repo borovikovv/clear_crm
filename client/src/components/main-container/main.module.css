@@ -1,5 +1,3 @@
 .main {
-    --main-color: #9AC8FE;
-    --header-padding: 60px;
     margin-top: var(--header-padding);
 }

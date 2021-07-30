@@ -1,9 +1,13 @@
 import { useDispatch } from "react-redux";
 import { useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 
 import { login } from "../../actions/authActions";
 import s from "./login.module.css"
+import types from "./../../common/routeTypes";
+const {
+  ROUTE_REGISTER
+} = types;
 
 const Login = (props) => {
     const { } = props;
@@ -40,8 +44,9 @@ const Login = (props) => {
         <div className={s.loginPage}>
             <form className={s.form} onSubmit={sendUserData}>
                 <label>
+                    <span className={s.inputText}>Email</span>
                     <input
-                        className={s.login}
+                        className={s.input}
                         value={email}
                         type="text"
                         name="mail"
@@ -49,7 +54,9 @@ const Login = (props) => {
                     />
                 </label>
                 <label>
+                    <span className={s.inputText}>Password</span>
                     <input
+                        className={s.input}
                         value={password}
                         type="password"
                         name="password"
@@ -62,6 +69,9 @@ const Login = (props) => {
                     Login
                 </button>
             </form>
+            <Link className={s.register} to={ROUTE_REGISTER}>
+                Registration
+            </Link>
         </div>
     )
 };

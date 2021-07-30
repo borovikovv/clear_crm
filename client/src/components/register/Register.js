@@ -1,10 +1,15 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 
 import { emailValidate, validatePassword } from "../../utils/authUtils";
 import { registration } from "../../actions/authActions";
 
 import s from "./register.module.css";
+import types from "./../../common/routeTypes";
+const {
+  ROUTE_LOGIN
+} = types;
 
 const Register = (props) => {
     const dispatch = useDispatch();
@@ -50,8 +55,9 @@ const Register = (props) => {
         <div className={s.registerPage}>
             <form className={s.form} onSubmit={sendUserData}>
                 <label>
+                <span className={s.inputText}>Email</span>
                     <input
-                        className={s.registerFields}
+                        className={s.input}
                         value={email}
                         type="text"
                         name="mail"
@@ -59,7 +65,9 @@ const Register = (props) => {
                     />
                 </label>
                 <label>
+                <span className={s.inputText}>Password</span>
                     <input
+                        className={s.input}
                         value={password}
                         type="password"
                         name="password"
@@ -67,7 +75,9 @@ const Register = (props) => {
                     />
                 </label>
                 <label>
+                <span className={s.inputText}>Confirm password</span>
                     <input
+                        className={s.input}
                         value={confirmPassword}
                         type="password"
                         name="password"
@@ -80,6 +90,9 @@ const Register = (props) => {
                     Registration
                 </button>
             </form>
+            <Link className={s.login} to={ROUTE_LOGIN}>
+                Login
+            </Link>
         </div>
     )
 };

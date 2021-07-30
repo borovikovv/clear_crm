@@ -8,6 +8,8 @@ import Login from "./components/login/Login";
 import MainContainer from "./components/main-container/MainContainer";
 import ProtectedRoute from "./components/common/protected-route/ProtectedRoute";
 
+import s from "./style.module.css";
+
 import types from "./common/routeTypes";
 const {
   ROUTE_REGISTER,
@@ -24,7 +26,7 @@ function App() {
   }, []);
 
   return (
-    <Fragment>
+    <div className={s.style}>
       <Switch>
         <Route exact path={ROUTE_LOGIN} component={Login} />
         <Route exact path={ROUTE_REGISTER} component={Register} />
@@ -32,7 +34,7 @@ function App() {
           <Route path="/" component={MainContainer} />
         </ProtectedRoute>
       </Switch>
-    </Fragment>
+    </div>
   );
 }
 
