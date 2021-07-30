@@ -14,6 +14,7 @@
   "author": "Borovikov Oleksii <borovikovvaleksey@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "antd": "^4.16.9",
     "bcrypt": "^5.0.1",
     "cookie-parser": "^1.4.5",
     "cors": "^2.8.5",

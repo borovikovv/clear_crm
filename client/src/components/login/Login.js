@@ -1,6 +1,7 @@
-import { useDispatch } from "react-redux";
-import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useState, useEffect } from "react";
 import { useHistory, Link } from "react-router-dom";
+import { CloseCircleOutlined } from '@ant-design/icons';
 
 import { login } from "../../actions/authActions";
 import s from "./login.module.css"
@@ -12,21 +13,31 @@ const {
 const Login = (props) => {
     const { } = props;
     const dispatch = useDispatch();
+    const authError = useSelector((state) => state.auth.error)
     let history = useHistory();
 
     let [email, setMail] = useState("");
     let [password, setPassword] = useState("");
+    let [error, setError] = useState("");
 
-    const sendUserData = (e) => {
+    useEffect(() => {
+        setError(authError);
+    }, [authError]);
+
+    const sendUserData = async (e) => {
         e.preventDefault();
+        
+        dispatch(login({ email, password, history }));
+
 
         // const isEmailValid = emailValidate(email);
         // const isPasswordValid = validatePassword()
         // const isConfirmPasswordValid = validatePassword()
-
-        dispatch(login({ email, password, history }));
-
     };
+
+    const closeError = () => {
+        setError("");
+    }
 
     const onChangeMail = (e) => {
         let value = e.target.value;
@@ -72,6 +83,16 @@ const Login = (props) => {
             <Link className={s.register} to={ROUTE_REGISTER}>
                 Registration
             </Link>
+            {
+                error &&
+                <div className={s.error}>
+                    <span>{error}</span>
+                    <span onClick={closeError}
+                     className={s.iconClose}>
+                         <CloseCircleOutlined />
+                         </span>
+                </div>
+            }
         </div>
     )
 };

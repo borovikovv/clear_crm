@@ -10,8 +10,8 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    border-radius: 20px;
-    padding: 30px 50px;
+    border-radius: 10px;
+    padding: 30px 20px;
     background-color: var(--main-grey);
     border: 1px solid #DCDCDC;
 }
@@ -26,6 +26,7 @@
     text-transform: uppercase;
     font-size: 14px;
     font-weight: 500;
+    margin-top: 5px;
     color: var(--main-text);
 }
 .button:hover {
@@ -45,6 +46,7 @@
     width: 300px;
     height: 30px;
     border: 1px solid #DCDCDC;
+    padding: 0px 10px;
 }
 .inputText {
     display: block;
@@ -55,7 +57,7 @@
 }
 .register, .register:hover {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    margin-left: 300px;
+    margin-left: 250px;
     margin-top: 10px;
     cursor: pointer;
     color: #4285F4;
@@ -71,4 +73,20 @@
     transition: .2s ease-out;
     transition-delay: 0.2s;
     color: #5491f3;
+}
+.error {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+    border-radius: 10px;
+    padding: 30px 20px;
+    background-color: var(--error-color);
+    border: 1px solid #DCDCDC;
+    color: #00000ab2;
+    margin-top: 20px;
+    width: 300px;
+}
+.iconClose {
+    cursor: pointer;
 }

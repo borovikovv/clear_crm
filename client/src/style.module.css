@@ -1,6 +1,7 @@
 .style {
     --main-grey: #f8f8f8;
     --main-color: #9AC8FE;
+    --error-color: #fde3e7;
     --main-text: aliceblue;
     --header-padding: 60px;
     margin-top: var(--header-padding);

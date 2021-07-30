@@ -3,9 +3,9 @@ import AuthService from "../api/AuthService";
 
 import types from "../common/routeTypes";
 const {
-    ROUTE_PROFILE,
-    ROUTE_LOGIN
-  } = types;
+  ROUTE_PROFILE,
+  ROUTE_LOGIN
+} = types;
 
 export const registration = createAsyncThunk(
   'auth/registration',
@@ -20,15 +20,26 @@ export const registration = createAsyncThunk(
 
 export const login = createAsyncThunk(
   'auth/login',
-  async (data) => {
-    const { email, password, history } = data;
+  async (data, { rejectWithValue }) => {
+    try {
+      const { email, password, history } = data;
 
-    const response = await AuthService.login(email, password);
+      const response = await AuthService.login(email, password);
 
-    localStorage.setItem('token', response.data.accessToken);
-    history.push(ROUTE_PROFILE);
+      localStorage.setItem('token', response.data.accessToken);
 
-    return true;
+      history.push(ROUTE_PROFILE);
+
+      return true;
+    } catch (err) {
+      if (!err.response) {
+        throw err
+      }
+
+      return rejectWithValue(err.response.data);
+    }
+
+
   }
 )
 

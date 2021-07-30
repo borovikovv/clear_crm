@@ -3,7 +3,8 @@ import { registration, login, logout, checkAuth } from "../actions/authActions";
 
 const initialState = {
   isAuth: false,
-  userData: {}
+  userData: {},
+  error: ""
 }
 
 export const authSlice = createSlice({
@@ -23,7 +24,10 @@ export const authSlice = createSlice({
       state.userData = action.payload;
     })
     .addCase(login.fulfilled, (state, action) => {
-      state.isAuth = action.payload;
+          state.isAuth = action.payload;
+    })
+    .addCase( login.rejected, (state, action) => {
+          state.error = action.payload;
     })
     .addCase(logout.fulfilled, (state, action) => {
       state.userData = {};
