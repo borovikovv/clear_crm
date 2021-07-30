@@ -1,0 +1,20 @@
+.header {
+    display: flex;
+    background-color: var(--main-color);
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    height: var(--header-padding);
+    width: 100%;
+}
+.main {
+    padding-left: 20px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 20px;
+    color: aliceblue;
+}
+.logout {
+    padding-right: 20px;
+}

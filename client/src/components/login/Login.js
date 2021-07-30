@@ -1,5 +1,6 @@
 import { useDispatch } from "react-redux";
 import { useState } from "react";
+import { useHistory } from "react-router-dom";
 
 import { login } from "../../actions/authActions";
 import s from "./login.module.css"
@@ -7,6 +8,7 @@ import s from "./login.module.css"
 const Login = (props) => {
     const { } = props;
     const dispatch = useDispatch();
+    let history = useHistory();
 
     let [email, setMail] = useState("");
     let [password, setPassword] = useState("");
@@ -18,7 +20,7 @@ const Login = (props) => {
         // const isPasswordValid = validatePassword()
         // const isConfirmPasswordValid = validatePassword()
 
-        dispatch(login({ email, password }));
+        dispatch(login({ email, password, history }));
 
     };
 

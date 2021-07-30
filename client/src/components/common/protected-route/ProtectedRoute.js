@@ -1,6 +1,7 @@
 import { Route, Redirect } from "react-router-dom"; 
 
-const ProtectedRoute = ({ isAuth, children, ...rest }) => {
+const ProtectedRoute = ({ children, ...rest }) => {
+  const isAuth = localStorage.token;
   
     return (
       <Route
